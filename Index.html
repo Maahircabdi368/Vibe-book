@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibe Coding Books</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Modal Style */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background: rgba(0,0,0,0.6);
+    }
+    .modal-content {
+      background: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 400px;
+      text-align: center;
+    }
+    .close {
+      float: right;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    /* Contact Buttons */
+    .contact-links {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    .contact-links a {
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: bold;
+      color: white;
+      transition: 0.3s;
+    }
+    .btn-whatsapp {
+      background: #25D366;
+    }
+    .btn-whatsapp:hover {
+      background: #1ebe5d;
+    }
+    .btn-telegram {
+      background: #0088cc;
+    }
+    .btn-telegram:hover {
+      background: #0077b5;
+    }
+    /* Search Bar */
+    .search-container {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    #bookSearch {
+      padding: 10px 15px;
+      width: 80%;
+      max-width: 400px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📚 Vibe Coding Books</h1>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#books">Books</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section id="books">
+    <h2>Our Collection</h2>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+      <input type="text" id="bookSearch" placeholder="Search books by title...">
+    </div>
+
+    <div class="books-grid">
+      <!-- Book 1 -->
+      <div class="book-card">
+        <img src="book1.jpg" alt="Book 1" width="150">
+        <h3>Book Title 1</h3>
+      </div>
+
+      <!-- Book 2 -->
+      <div class="book-card">
+        <img src="book2.jpg" alt="Book 2" width="150">
+        <h3>Book Title 2</h3>
+      </div>
+
+      <!-- Book 3 -->
+      <div class="book-card">
+        <img src="book3.jpg" alt="Book 3" width="150">
+        <h3>Book Title 3</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div id="bookModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <img id="modalImage" src="" alt="Book Image" width="150">
+      <h2 id="modalTitle"></h2>
+      <p id="modalDesc">This is where the book description will go.</p>
+
+      <!-- WhatsApp & Telegram Buttons -->
+      <div class="contact-links">
+        <a id="whatsappLink" href="#" target="_blank" class="btn-whatsapp">WhatsApp</a>
+        <a id="telegramLink" href="#" target="_blank" class="btn-telegram">Telegram</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Vibe Coding. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // hel elements
+    const modal = document.getElementById("bookModal");
+    const modalImg = document.getElementById("modalImage");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalDesc = document.getElementById("modalDesc");
+    const closeBtn = document.querySelector(".close");
+    const books = document.querySelectorAll(".book-card");
+
+    // loop through buugaagta
+    books.forEach(book => {
+      book.addEventListener("click", () => {
+        const imgSrc = book.querySelector("img").src;
+        const title = book.querySelector("h3").innerText;
+
+        modal.style.display = "block";
+        modalImg.src = imgSrc;
+        modalTitle.innerText = title;
+        modalDesc.innerText = "This is a short description of " + title + ".";
+
+        // WhatsApp & Telegram links
+        const whatsappNumber = "252611234567"; // beddel number-kaaga
+        const telegramUser = "YourTelegramUser"; // beddel username
+
+        document.getElementById("whatsappLink").href =
+          `https://wa.me/${whatsappNumber}?text=Hi, I am interested in the book: ${title}`;
+
+        document.getElementById("telegramLink").href =
+          `https://t.me/${telegramUser}`;
+      });
+    });
+
+    // close modal marka la dhufto (X)
+    closeBtn.onclick = () => {
+      modal.style.display = "none";
+    };
+
+    // close modal marka meel banaan la dhufto
+    window.onclick = (event) => {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    };
+
+    // Search Functionality
+    const searchInput = document.getElementById("bookSearch");
+    searchInput.addEventListener("keyup", () => {
+      const filter = searchInput.value.toLowerCase();
+      books.forEach(book => {
+        const title = book.querySelector("h3").innerText.toLowerCase();
+        book.style.display = title.includes(filter) ? "" : "none";
+      });
+    });
+  </script>
+</body>
+</html>
